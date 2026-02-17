@@ -1,5 +1,4 @@
 #include <cstdio>
-#include <string>
 #include <vector>
 
 #include "raylib.h"
@@ -17,9 +16,8 @@ int main() {
 
     World world;
 
-    float dt_mult = 1.0f;
     while (!WindowShouldClose()) {
-        float dt = 0.0f; //GetFrameTime()*dt_mult;
+        float dt = GetFrameTime();
 
         if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
             Vector2 mouse = GetMousePosition();
@@ -36,8 +34,6 @@ int main() {
             world.nucleus.push_back(create_nucleus(mouse, 1));
         }
 
-        dt_mult += GetMouseWheelMove()/100.0;
-
         world.update(dt);
 
         BeginDrawing();
@@ -45,11 +41,10 @@ int main() {
 
         world.draw();
 
-        std::string text = std::to_string(dt_mult);
-        DrawText(text.c_str(), 10.0, 10.0, 15, RED);
         EndDrawing();
     }
 
     CloseWindow();
     return 0;
 }
+
